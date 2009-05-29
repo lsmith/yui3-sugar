@@ -1,0 +1,29 @@
+Module for the byte stingy that creates a convenience function that wraps
+* Y.get('window')       Y('win') or Y('window') or Y(window)
+* Y.get('document')     Y('doc') or Y('document') or Y(document)
+* Y.all(...)            Y('.some[sel=ctor]')
+* Y.Node.create(...)    Y('<p>String of markup</p>')
+
+Additionally, it overrides the default Y.use behavior to pass the convenience
+function as the first parameter to the callback provided as the last arg.
+
+E.g.
+
+YUI({..}).use(...,'sugar', function (Y) {
+    // Create the sugar method once
+    var $ = Y.sugar();
+
+    // eq. Y.all('.x').addClass('foo');
+    $('.x').addClass('foo');
+
+    // $.use works the same as Y.use, but the first arg is the sugar function
+    $.use('io-base', function ($) {
+        // eq. Y.io(..)
+        $.io('sugar.html', {on: { success: function (id, o) {
+            // eq. Y.all('.x').item(0).appendChild(
+            //         Y.Node.create(..));
+            $('.x').item(0).appendChild($('<pre>' + o.responseText + '</pre>'));
+        }}});
+    });
+
+});
