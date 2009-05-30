@@ -1,4 +1,4 @@
-Module for the byte stingy that creates a convenience function that wraps
+Module for the byte conscious (read: obsessed) that creates a convenience function that wraps
 * Y.get('window')       Y('win') or Y('window') or Y(window)
 * Y.get('document')     Y('doc') or Y('document') or Y(document)
 * Y.all(...)            Y('.some[sel=ctor]')
