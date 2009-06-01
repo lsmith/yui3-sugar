@@ -1,14 +1,26 @@
 YUI.add('sugar', function (Y) {
+    var isString = Y.Lang.isString;
+
     function $(x) {
+        var isString = isString;
         if (x) {
-            if (x === window || x === 'window') {
-                return $.get('win');
-            } else if (x === document || x === 'document') {
-                return $.get('doc');
-            } else if (x.indexOf('<') !== -1) {
-                return $.Node.create.apply($.Node,arguments);
-            } else {
-                return $.all.apply($, arguments);
+            if (!isString(x)) {
+                if (x instanceof $.NodeList || x instanceof $.Node) {
+                    return x;
+                } else {
+                    x = x === window ? 'win' :
+                        x === document ? 'doc' : x;
+                }
+            }
+
+            if (isString(x)) {
+                if (x.indexOf('<') !== -1) {
+                    return $.Node.create.apply($.Node,arguments);
+                } else if (!x.indexOf('doc') || !x.indexOf('win')) {
+                    return $.get.apply($, arguments);
+                } else {
+                    return $.all.apply($, arguments);
+                }
             }
         }
 
