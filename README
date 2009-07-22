@@ -10,7 +10,8 @@ function as the first parameter to the callback provided as the last arg.
 E.g.
 
 YUI({..}).use(...,'sugar', function (Y) {
-    // Create the sugar method once
+    // Create the sugar method once (don't use $ if you'll share space with
+    // another js lib that leverages the $ symbol)
     var $ = Y.sugar();
 
     // eq. Y.all('.x').addClass('foo');
