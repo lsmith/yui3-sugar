@@ -2,7 +2,6 @@ YUI.add('sugar', function (Y) {
     var isString = Y.Lang.isString;
 
     function $(x) {
-        var isString = isString;
         if (x) {
             if (!isString(x)) {
                 if (x instanceof $.NodeList || x instanceof $.Node) {
@@ -17,7 +16,7 @@ YUI.add('sugar', function (Y) {
                 if (x.indexOf('<') !== -1) {
                     return $.Node.create.apply($.Node,arguments);
                 } else if (!x.indexOf('doc') || !x.indexOf('win')) {
-                    return $.get.apply($, arguments);
+                    return $.one.apply($, arguments);
                 } else {
                     return $.all.apply($, arguments);
                 }
